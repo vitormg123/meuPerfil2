@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<!-- Define o tipo de documento como HTML5. -->
+
+<html lang="pt-br">
+  <!-- Define o idioma do conteúdo como português do Brasil. -->
+  <head>
+    <meta charset="UTF-8">
+    <!-- Define a codificação de caracteres como UTF-8 para suportar caracteres especiais. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Torna a página responsiva ajustando-a ao tamanho da tela do dispositivo. -->
+    <title>Meu Perfil</title>
+    <!-- Define o título da página que aparece na aba do navegador. -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Importa o CSS do Bootstrap para estilização. -->
+    <style>
+      #profileImage {
+        cursor: pointer;
+        /* Define que o ponteiro do mouse mudará para o estilo "pointer" ao passar sobre a imagem. */
+      }
+    </style>
+  </head>
+  <body class="bg-light">
+    <!-- Define o fundo da página como claro. -->
+    <div class="container mt-5">
+      <!-- Cria um container centralizado com margem superior. -->
+      <h1 class="text-center mb-4">Meu Perfil</h1>
+      <!-- Título centralizado com margem inferior. -->
+
+      <!-- Card de perfil -->
+      <div class="card" id="profileCard">
+        <!-- Um card Bootstrap para agrupar informações. -->
+        <div class="card-body text-center">
+          <!-- Centraliza o conteúdo do corpo do card. -->
+          
+          <!-- Imagem de perfil -->
+          <img src="imagem/imagem1.jpeg" alt="Imagem de Perfil" id="profileImage" class="rounded-circle mb-3" style="width: 150px;">
+          <!-- Imagem circular de perfil com margem inferior. -->
+
+          <h3 id="profileName">Nome: Gato mewing mg</h3>
+          <!-- Nome do perfil exibido como título. -->
+
+          <p id="profileAge">Idade: 95 a.c.</p>
+          <!-- Exibe a idade do perfil. -->
+
+          <!-- Lista de hobbies -->
+          <h5>Hobbies:</h5>
+          <!-- Subtítulo para os hobbies. -->
+
+          <ul id="hobbiesList" class="list-group mb-3">
+            <!-- Lista de hobbies com estilo Bootstrap. -->
+            <li class="list-group-item" onclick="removerHobby(this)">Mewing</li>
+            <li class="list-group-item" onclick="removerHobby(this)">Academia</li>
+            <li class="list-group-item" onclick="removerHobby(this)">Acariciar gatas</li>
+            <!-- Cada item da lista pode ser removido ao clicar. -->
+          </ul>
+
+          <!-- Botões de interação -->
+          <button class="btn btn-primary me-2" onclick="alterarNome()">Alterar Nome</button>
+          <button class="btn btn-primary me-2" onclick="alterarIdade()">Alterar Idade</button>
+          <button class="btn btn-success me-2" onclick="adicionarHobby()">Adicionar Hobby</button>
+          <button class="btn btn-warning me-2" onclick="mudarCorDeFundo()">Mudar Cor de Fundo</button>
+          <button class="btn btn-danger" onclick="resetarPagina()">Resetar</button>
+          <!-- Botões para alterar nome, idade, adicionar/remover hobbies, mudar cor de fundo e resetar. -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Função para alterar o nome
+      function alterarNome() {
+        const novoNome = prompt("Digite seu novo nome: ");
+        if (novoNome) {
+          document.getElementById("profileName").textContent = "Nome: " + novoNome;
+          // Atualiza o nome no HTML.
+        }
+      }
+
+      // Função para alterar a idade
+      function alterarIdade() {
+        const novaIdade = prompt("Digite sua nova idade: ");
+        if (novaIdade) {
+          document.getElementById("profileAge").textContent = "Idade: " + novaIdade;
+          // Atualiza a idade no HTML.
+        }
+      }
+
+      // Função para adicionar um hobby
+      function adicionarHobby() {
+        const novoHobby = prompt("Digite um novo hobby: ");
+        if (novoHobby) {
+          const li = document.createElement("li");
+          // Cria um novo item de lista.
+          li.textContent = novoHobby;
+          li.className = "list-group-item";
+          li.setAttribute("onclick", "removerHobby(this)");
+          // Adiciona a funcionalidade de remover ao clicar.
+          document.getElementById("hobbiesList").appendChild(li);
+          // Adiciona o item à lista de hobbies.
+        }
+      }
+
+      // Função para remover um hobby
+      function removerHobby(hobby) {
+        hobby.remove();
+        // Remove o item clicado.
+      }
+
+      // Função para mudar a cor de fundo do card
+      function mudarCorDeFundo() {
+        const cores = ["#f8d7da", "#d1ecf1", "#d4edda", "#fff3cd", "#cce5ff"];
+        // Array de cores disponíveis.
+        const corAleatoria = cores[Math.floor(Math.random() * cores.length)];
+        // Seleciona uma cor aleatória.
+        document.getElementById("profileCard").style.backgroundColor = corAleatoria;
+        // Aplica a cor ao fundo do card.
+      }
+
+      // Função para alterar a imagem de perfil ao passar o mouse
+      document.getElementById("profileImage").addEventListener("mouseenter", function() {
+        this.src = "imagem/imagem2.jpg";
+        // Altera a imagem para outra ao passar o mouse.
+      });
+
+      // Função para restaurar a imagem original ao sair com o mouse
+      document.getElementById("profileImage").addEventListener("mouseleave", function() {
+        this.src = "imagem/imagem1.jpeg";
+        // Restaura a imagem original.
+      });
+
+      // Função para resetar a página ao estado inicial
+      function resetarPagina() {
+        document.getElementById("profileName").textContent = "Nome: Gato Mewing mg";
+        document.getElementById("profileAge").textContent = "Idade: 95 a.c.";
+        // Restaura o nome e idade originais.
+
+        const hobbiesList = document.getElementById("hobbiesList");
+        hobbiesList.innerHTML = `
+          <li class="list-group-item" onclick="removerHobby(this)">Mewing</li>
+          <li class="list-group-item" onclick="removerHobby(this)">Academia</li>
+          <li class="list-group-item" onclick="removerHobby(this)">Acariciar gatas</li>
+        `;
+        // Restaura a lista de hobbies original.
+
+        document.getElementById("profileCard").style.backgroundColor = "";
+        // Reseta a cor de fundo do card.
+        document.getElementById("profileImage").src = "imagem/imagem1.jpeg";
+        // Reseta a imagem para a original.
+      }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Importa o JavaScript do Bootstrap. -->
+  </body>
+</html>
